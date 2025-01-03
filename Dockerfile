@@ -27,11 +27,7 @@ RUN cpan Math::Pari
 RUN mkdir ~/NetNC
 WORKDIR ~/NetNC
 
-# Install Python packages
-#RUN python3 -m venv netnc && source netnc/bin/activate
-#RUN pip3 install --no-cache-dir numpy networkx==1.8
-
-# Copy files into workspace
+# copy files into workspace
 COPY . .
 RUN cp -r /~/NetNC /usr/local/bin/
 
