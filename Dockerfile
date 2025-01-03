@@ -1,29 +1,25 @@
-# openSUSE Leap image
-FROM opensuse/leap:latest
+# ubuntu LTS image
+FROM ubuntu:latest
 
-# Install system dependencies
-RUN zypper refresh && zypper --non-interactive install --no-recommends -y \
-    gcc \
-    gcc-c++ \
-    make \
-    cmake \
-    python3 \
-    python3-devel \
-    python3-pip \
-    python3-numpy \
-    python3-networkx \
-    R-base \
-    R-devel \
-    perl \
-    pari-devel \
-    git \
-    wget \
-    && zypper clean -a
+# install system dependencies
+RUN apt update && apt-get install -y --no-install-recommends build-essential \
+        cpanminus \
+        r-base \
+        python3 \
+        python3-dev \
+        python3-pip \
+        python3-numpy \
+        python3-networkx \
+        perl \
+        pari-gp \
+        libpari-dev \
+        git \
+        wget && rm -rf /var/lib/apt/lists/*
 
-# Install Math::Pari
-RUN cpan Math::Pari
+# install math::pari using cpanm
+RUN cpanm Math::Pari
 
-# create workspace 
+# workspace
 RUN mkdir ~/NetNC
 WORKDIR ~/NetNC
 
